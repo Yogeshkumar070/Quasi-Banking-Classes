@@ -8,7 +8,7 @@ export default function Hero() {
   // Carousel State
   const [currentSlide, setCurrentSlide] = useState(0)
   const banners = [
-    "/images/SBIPOBANNER.PNG", 
+    "/images/SBIPOBANNER.png", 
     "/images/2.2canva.png" 
     
 
