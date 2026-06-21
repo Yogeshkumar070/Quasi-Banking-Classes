@@ -30,7 +30,7 @@ const facultyData = [
     name: "B. Sudha Rani",
     subject: "Coordinator",
     experience: "5+ Years Exp",
-    image: "/images/faculty_Sudha_Rani.jpeg", 
+    image: "/images/faculty_Sudha_rani.jpeg", 
     specialTag: null
   },
   {
