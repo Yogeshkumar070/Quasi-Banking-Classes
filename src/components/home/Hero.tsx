@@ -8,11 +8,10 @@ export default function Hero() {
   // Carousel State
   const [currentSlide, setCurrentSlide] = useState(0)
   const banners = [
-    "/images/SBIPOBANNER.png", 
-    "/images/2.2canva.png" 
-    
-
-  ]
+  "/images/SBIPOBANNER.png",
+  "/images/2.1QBC-banner.png",
+  "/images/2.2canva.png"
+]
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % banners.length)
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length)
@@ -20,53 +19,56 @@ export default function Hero() {
   return (
     <section className="w-full bg-[#f8fafc] pb-12 relative font-sans"> 
       
-      {/* 1. EDGE-TO-EDGE CAROUSEL BANNER — unchanged */}
-      <div className="relative w-full group overflow-hidden bg-blue-50">
-        <Link href="/target-sbi-po-batch" className="block w-full cursor-pointer relative">
-          <div className="relative w-full h-[127px] sm:h-[170px] md:h-[238px] lg:h-[335px]">
-            <Image 
-              src={banners[currentSlide]} 
-              alt="QBC Target Batch Banner"
-              fill
-              className="object-cover object-center transition-all duration-500" 
-              priority
-            />
+      {/* 1. SMOOTHED CAROUSEL BANNER — Height increased by an additional 5% */}
+      <div className="max-w-[1400px] mx-auto px-4 pt-4">
+        <div className="relative w-full group overflow-hidden bg-blue-50 rounded-2xl shadow-sm">
+          <Link href="/target-sbi-po-batch" className="block w-full cursor-pointer relative">
+            {/* Height specs increased by 5% to consume empty space dynamically */}
+            <div className="relative w-full h-[148px] sm:h-[196px] md:h-[276px] lg:h-[386px]">
+              <Image 
+                src={banners[currentSlide]} 
+                alt="QBC Target Batch Banner"
+                fill
+                className="object-cover object-center transition-all duration-500 rounded-2xl" 
+                priority
+              />
+            </div>
+          </Link>
+
+          {/* Carousel Arrows */}
+          <button 
+            onClick={prevSlide} 
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button 
+            onClick={nextSlide} 
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Navigation Dashes */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {banners.map((_, idx) => (
+              <button 
+                key={idx} 
+                onClick={() => setCurrentSlide(idx)} 
+                className={`h-1 transition-all duration-300 ${currentSlide === idx ? 'w-8 bg-white' : 'w-6 bg-white/60 hover:bg-white/90'}`} 
+              />
+            ))}
           </div>
-        </Link>
-
-        {/* Carousel Arrows */}
-        <button 
-          onClick={prevSlide} 
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        <button 
-          onClick={nextSlide} 
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
-        {/* Navigation Dashes */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {banners.map((_, idx) => (
-            <button 
-              key={idx} 
-              onClick={() => setCurrentSlide(idx)} 
-              className={`h-1 transition-all duration-300 ${currentSlide === idx ? 'w-8 bg-white' : 'w-6 bg-white/60 hover:bg-white/90'}`} 
-            />
-          ))}
         </div>
       </div>
 
-      {/* 2. THE TRUST SECTION — refined type scale, measured subhead width, more deliberate spacing */}
-      <div className="max-w-[1400px] mx-auto px-4 mt-12 text-center">
+      {/* 2. THE TRUST SECTION — Spacing optimized (mt-7) to balance the taller banner */}
+      <div className="max-w-[1400px] mx-auto px-4 mt-5 text-center">
         <h2 className="text-[34px] md:text-[44px] font-black text-[#14224A] tracking-[-0.02em] leading-[1.1]">
           Bharat&apos;s{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#30ACE2] to-[#4a80ed]">
@@ -74,21 +76,23 @@ export default function Hero() {
           </span>{' '}
           Educational Platform
         </h2>
-        <p className="mt-5 text-[17px] text-slate-500 font-medium max-w-[560px] mx-auto leading-relaxed">
+        
+        <p className="mt-3 text-[17px] text-slate-500 font-medium max-w-[560px] mx-auto leading-relaxed">
           Unlock your potential by signing up with Quasi Banking Classes — the most affordable learning solution.
         </p>
-        <div className="mt-8 mb-12">
-          <button className="bg-gradient-to-r from-[#1f9fd8] to-[#2563eb] hover:from-[#1c8fc2] hover:to-[#1d4fd1] text-white px-11 py-4 rounded-xl font-bold text-[16px] transition-all duration-300 shadow-[0_8px_22px_rgba(37,99,235,0.32)] hover:shadow-[0_10px_30px_rgba(37,99,235,0.42)] hover:-translate-y-0.5 active:scale-95 tracking-wide">
+        
+        <div className="mt-4 mb-12">
+          <button className="bg-gradient-to-r from-[#1f9fd8] to-[#2563eb] hover:from-[#1c8fc2] hover:to-[#1d4fd1] text-white px-11 py-4 rounded-xl font-bold text-[18px] transition-all duration-300 shadow-[0_8px_22px_rgba(37,99,235,0.32)] hover:shadow-[0_10px_30px_rgba(37,99,235,0.42)] hover:-translate-y-0.5 active:scale-95 tracking-wide">
             Get Started
           </button>
         </div>
       </div>
 
-      {/* 3. PREMIUM FLOATING FEATURES BANNER — icons rebuilt as layered, filled illustrations (PW-style), no halo backgrounds */}
+      {/* 3. PREMIUM FLOATING FEATURES BANNER */}
       <div className="max-w-[1120px] mx-auto px-4 relative z-10 -mb-20">
         <div className="bg-white rounded-[24px] shadow-[0_24px_60px_-12px_rgba(20,34,74,0.14)] py-9 px-6 md:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 divide-y md:divide-y-0 lg:divide-x divide-slate-100 border border-slate-100/80">
 
-          {/* Feature 1: Lectures — filled play-on-screen badge, like a "LIVE" tile */}
+          {/* Feature 1: Lectures */}
           <div className="flex flex-col items-center text-center px-3 pt-8 md:pt-0 group">
             <div className="w-[68px] h-[68px] mb-4 transition-transform duration-300 group-hover:-translate-y-1.5">
               <svg className="w-full h-full" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +112,7 @@ export default function Hero() {
             <p className="text-[14.5px] text-slate-500 font-semibold mt-1">Top Faculty</p>
           </div>
 
-          {/* Feature 2: Mock Tests — layered paper sheet with checklist + pencil, soft shadow stack */}
+          {/* Feature 2: Mock Tests */}
           <div className="flex flex-col items-center text-center px-3 pt-8 md:pt-0 group">
             <div className="w-[68px] h-[68px] mb-4 transition-transform duration-300 group-hover:-translate-y-1.5">
               <svg className="w-full h-full" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +136,7 @@ export default function Hero() {
             <p className="text-[14.5px] text-slate-500 font-semibold mt-1">&amp; Sample Papers</p>
           </div>
 
-          {/* Feature 3: Doubt Resolution — filled head silhouette with chat-bubble question mark */}
+          {/* Feature 3: Doubt Resolution */}
           <div className="flex flex-col items-center text-center px-3 pt-8 md:pt-0 group">
             <div className="w-[68px] h-[68px] mb-4 transition-transform duration-300 group-hover:-translate-y-1.5">
               <svg className="w-full h-full" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,7 +156,7 @@ export default function Hero() {
             <p className="text-[14.5px] text-slate-500 font-semibold mt-1">Doubt Resolution</p>
           </div>
 
-          {/* Feature 4: Interview — filled medal/badge with ribbon, matches PW's "100+ Offline centres" badge motif */}
+          {/* Feature 4: Interview Preparation */}
           <div className="flex flex-col items-center text-center px-3 pt-8 md:pt-0 group">
             <div className="w-[68px] h-[68px] mb-4 transition-transform duration-300 group-hover:-translate-y-1.5">
               <svg className="w-full h-full" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
