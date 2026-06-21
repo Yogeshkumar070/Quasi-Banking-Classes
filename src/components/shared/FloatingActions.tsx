@@ -24,7 +24,7 @@ export default function FloatingActions() {
     <>
       {/* 1. SLIDING QR CODE DRAWER (Middle Right) */}
       <div 
-        className={`fixed top-1/2 -translate-y-1/2 right-0 z-[100] flex items-start transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-2/3 -translate-y-1/2 right-0 z-[100] flex items-start transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isQrOpen ? 'translate-x-0' : 'translate-x-[calc(100%-42px)]' // Adjusted for smaller 42px tab width
         }`}
       >
